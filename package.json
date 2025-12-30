@@ -24,6 +24,9 @@
     "vue-router": "^4.6.4"
   },
   "devDependencies": {
-    "@primevue/nuxt-module": "^4.5.4"
+    "@antfu/eslint-config": "^6.7.3",
+    "@primevue/nuxt-module": "^4.5.4",
+    "eslint": "^9.39.2",
+    "eslint-plugin-format": "^1.1.0"
   }
 }

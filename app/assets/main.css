@@ -1,0 +1,12 @@
+/* assets/css/main.css */
+@import "tailwindcss";
+@import "tailwindcss-primeui";
+
+@layer base {
+    html {
+        font-size: 14px;
+        font-family: "Inter", sans-serif;
+        -webkit-font-smoothing: antialiased; 
+        -moz-osx-font-smoothing: grayscale;
+    }
+}

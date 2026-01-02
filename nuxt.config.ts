@@ -5,7 +5,8 @@ import { defineNuxtConfig } from 'nuxt/config'
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: ['@nuxt/eslint', '@primevue/nuxt-module', '@nuxt/fonts'],
+  ssr: false,
+  modules: ['@nuxt/eslint', '@primevue/nuxt-module', '@nuxt/fonts', '@pinia/nuxt'],
   eslint: {
     config: {
       standalone: false,
@@ -16,6 +17,12 @@ export default defineNuxtConfig({
     plugins: [
       tailwindcss(),
     ],
+  },
+  runtimeConfig: {
+    public: {
+      hostUrl: 'https://kcat.pics',
+      baseUrl: 'https://kcat.pockethost.io',
+    },
   },
   // @ts-ignore
   primevue: {

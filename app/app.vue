@@ -4,13 +4,20 @@ import { onMounted } from 'vue'
 
 const settingsStore = useSettingsStore()
 
+// Add darkmode class to HTML element for PrimeVue theme
+useHead({
+  htmlAttrs: {
+    class: 'darkmode',
+  },
+})
+
 onMounted(async () => {
   await settingsStore.settingsLoad()
 })
 </script>
 
 <template>
-  <div class="darkmode">
+  <div>
     <img
       src="~/assets/background.svg"
       alt="Background"

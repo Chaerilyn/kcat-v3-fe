@@ -2,10 +2,6 @@
 import { useToast } from 'primevue/usetoast'
 import { ref } from 'vue'
 
-definePageMeta({
-  layout: false,
-})
-
 const router = useRouter()
 const toast = useToast()
 const authStore = useAuthStore()
@@ -44,39 +40,29 @@ async function authenticateWithData() {
     })
   }
 }
-
-function featureUnavailable() {
-  toast.add({
-    severity: 'warn',
-    summary: 'Feature Unavailable',
-    detail: 'This feature is not available yet, login with Discord.',
-    life: 5000,
-  })
-}
 </script>
 
 <template>
-  <div class="min-h-screen darkmode bg-[#020617]">
+  <div class="min-h-screen">
     <section class="border-red-500 pt-[150px] flex items-center justify-center">
       <div class="bg-[#0f172a] p-5 flex rounded-2xl shadow-lg max-w-3xl">
         <div class="md:w-1/2 px-5">
-          <h2 class="text-2xl font-bold">
+          <h2 class="text-2xl text-white font-bold">
             Login
           </h2>
-          <p class="text-sm mt-4">
+          <p class="text-sm text-white mt-2">
             If you have an account, please login
           </p>
           <form class="mt-6" action="#" method="POST">
             <div>
               <label class="block">Email Address</label>
-              <InputText v-model="email" type="email" name="" placeholder="Enter Email Address" class="w-full px-4 py-3 rounded-lg mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none" autofocus required />
+              <InputText v-model="email" type="email" name="" placeholder="Enter Email Address" class="w-full px-4 rounded-lg mt-2 border" autofocus required />
             </div>
 
             <div class="mt-4">
               <label class="block">Password</label>
               <InputText
-                v-model="password" type="password" name="" placeholder="Enter Password" minlength="6" class="w-full px-4 py-3 rounded-lg  mt-2 border focus:border-blue-500
-                    focus:bg-white focus:outline-none" required
+                v-model="password" type="password" name="" placeholder="Enter Password" minlength="6" class="w-full px-4 rounded-lg mt-2 border" required
               />
             </div>
 
@@ -87,7 +73,7 @@ function featureUnavailable() {
             <Button
               label="Log In"
               icon="pi pi-sign-in"
-              class="w-full mt-4 py-3 px-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-300 ease-in-out"
+              class="w-full mt-4 px-6 font-semibold rounded-lg transition-all duration-300 ease-in-out"
               @click="authenticateWithData()"
             />
           </form>
@@ -104,23 +90,23 @@ function featureUnavailable() {
             label="Login with Discord"
             severity="info"
             icon="pi pi-discord"
-            class="w-full mt-7 py-3 px-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-300 ease-in-out"
+            class="w-full mt-7 px-6 font-semibold rounded-lg transition-all duration-300 ease-in-out"
             @click="authenticate"
           />
 
-          <div class="text-sm flex justify-between items-center mt-4">
+          <div class="text-sm text-white flex justify-between items-center mt-4">
             <p>If you don't have an account...</p>
             <Button
               label="Register"
               severity="contrast"
-              class="py-3 px-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-300 ease-in-out"
-              @click="featureUnavailable"
+              class="px-6 font-semibold rounded-lg transition-all duration-300 ease-in-out"
+              @click="router.push('/register')"
             />
           </div>
         </div>
 
         <div class="w-1/2 md:block hidden ">
-          <img src="https://i.imgur.com/EXCYeCW.jpeg" class="rounded-2xl" alt="page img">
+          <img src="https://i.imgur.com/NK9Y8zx.jpeg" class="rounded-2xl" alt="page img">
         </div>
       </div>
     </section>

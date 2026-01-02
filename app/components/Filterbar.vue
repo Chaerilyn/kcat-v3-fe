@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
 const emit = defineEmits([
   'filtersOpen',
   'optionsOpen',
@@ -14,6 +12,13 @@ const {
 } = useWindowSize()
 
 const searchValue = ref('')
+
+onMounted(() => {
+  const storedSearchValue = localStorage.getItem('searchValue')
+  if (storedSearchValue) {
+    searchValue.value = storedSearchValue
+  }
+})
 
 function filtersReset() {
   localStorage.removeItem('filters')

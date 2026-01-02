@@ -241,12 +241,11 @@ export function useFetchItems(fetchVariation: string, route: any, settingsStore:
 
     fetchItems = async (page: number) => {
       isLoading.value = true
-      const [query, sortValue] = buildFilterQuery(false)
 
       try {
         const records: ContentsResponse = await pb.collection('contents').getList(page, +settingsStore.settings.contentCount, {
-          sort: sortValue,
-          filter: `${query}${query ? '&&' : ''}(set="${route.params.id}")`,
+          sort: '-created',
+          filter: `(set="${route.params.id}")`,
           expand: 'idol,group,tag,uploader,likes',
         })
         items.value = records.items

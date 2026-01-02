@@ -25,6 +25,18 @@ export const useAuthStore = defineStore('authStore', () => {
     update()
   }
 
+  async function register(email: string, password: string, passwordConfirm: string) {
+    // Create the user account
+    await pb.collection('users').create({
+      email,
+      password,
+      passwordConfirm,
+    })
+    // Automatically authenticate after registration
+    await pb.collection('users').authWithPassword(email, password)
+    update()
+  }
+
   function logout() {
     pb.authStore.clear()
     update()
@@ -61,6 +73,7 @@ export const useAuthStore = defineStore('authStore', () => {
     uploader,
     update,
     login,
+    register,
     loginWithOAuth,
     logout,
   }

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import Avatar from 'primevue/avatar'
 import Menu from 'primevue/menu'
-import { ref } from 'vue'
 
 const router = useRouter()
 const route = useRoute()
+const toast = useToast()
 
 const authStore = useAuthStore()
 
@@ -69,16 +69,25 @@ const items = ref([
 function userMenuOpen(event: MouseEvent) {
   menu.value.toggle(event)
 }
+
+function showComingSoon() {
+  toast.add({
+    severity: 'info',
+    summary: 'Coming soon!',
+    detail: 'Ability to support KpopCat team will be available soon.',
+    life: 3000,
+  })
+}
 </script>
 
 <template>
   <div class="flex justify-between items-center select-none ">
     <div />
-    <div class="pl-[52px]">
+    <div>
       <div class="relative inline-flex flex-col items-center">
         <!-- Version Div -->
         <div class="absolute bottom-4.75 right-0 bg-black text-[8px] p-1 rounded-lg opacity-75">
-          v0.61 - 02/07/2025
+          v0.70 - Jan 2nd 2026
         </div>
         <!-- Logo -->
         <img src="~/assets/images/kpopcat3.png" width="200" class="cursor-pointer" @click="navigateHome">
@@ -93,12 +102,13 @@ function userMenuOpen(event: MouseEvent) {
 
     <div class="card flex justify-center">
       <div v-if="authStore.isValid">
-        <Avatar icon="pi pi-user" class="hover:brightness-140 transition duration-300 cursor-pointer" style="background-color: #1e293b;" size="xlarge" shape="circle" @click="userMenuOpen" />
+        <Avatar icon="pi pi-user" class="hover:brightness-140 transition duration-300 cursor-pointer"
+          style="background-color: #1e293b;" size="xlarge" shape="circle" @click="userMenuOpen" />
         <Menu id="overlay_menu" ref="menu" :model="items" :popup="true" />
       </div>
     </div>
   </div>
-  <div class="flex mx-auto justify-between w-36 text-gray-400 mt-0.5">
+  <div class="flex justify-center items-center gap-4 text-gray-400 mt-0.5">
     <p class="block text-center text-xs hover:text-cyan-600 cursor-pointer" @click="navigateTerms">
       Terms
     </p>
@@ -106,9 +116,12 @@ function userMenuOpen(event: MouseEvent) {
       About
     </p>
     <p class="block text-center text-xs hover:text-cyan-600">
-      <a href="https://ko-fi.com/">
-        Donate <em class="opacity-0"></em>
+      <a href="https://selca.kastden.org/kpop/" target="_blank">
+        Selca <em class="opacity-0"></em>
       </a>
+    </p>
+    <p class="block text-center text-xs hover:text-cyan-600 cursor-pointer" @click="showComingSoon">
+      Donate <em class="opacity-0"></em>
     </p>
   </div>
 </template>

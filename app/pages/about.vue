@@ -58,7 +58,16 @@
         </h1>
         <ul class="list-disc list-inside text-gray-300">
           <h3 class="font-bold text-white">
-            v0.51/01-04-2025:
+            v0.70/Jan 2nd 2026:
+          </h3>
+          <p>- Added ability to middle click/open new tab entire set</p>
+          <p>- Registration using email and password instead of Discord OAuth</p>
+          <p>- Filters being applied despite empty search bar bug fixed</p>
+          <p>- No filters are applied in single set view</p>
+        </ul>
+        <ul class="list-disc list-inside text-gray-300">
+          <h3 class="font-bold text-white">
+            v0.51/Jan 4th 2025:
           </h3>
           <p>- Added quick access to top posts for predefined periods</p>
           <p>- Change button icon depending on slideout state</p>

@@ -99,11 +99,11 @@ function filtersApply(value: FilterValue, type: 'idol' | 'group' | 'uploader' | 
 <template>
   <div class="pt-3 pb-3 px-2 rounded-md bg-[#0f172a] relative stack-effect">
     <div class="flex items-center gap-2 mb-2">
-      <div class="flex-1 truncate" @click="goToSingle(content.id)">
+      <NuxtLink :to="`/set/${content.id}`" class="flex-1 truncate">
         <h3 class="hover:text-rose-400 cursor-pointer">
           {{ content.title }}
         </h3>
-      </div>
+      </NuxtLink>
       <div class="flex-shrink-0 flex gap-2">
         <div v-if="(content.expand as any)?.uploader" class="inline">
           <Tag
@@ -202,11 +202,11 @@ function filtersApply(value: FilterValue, type: 'idol' | 'group' | 'uploader' | 
   background: #0f172a;
   border-radius: 8px;
   padding: 12px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
 }
 
 .stack-effect::before {
-  content: "";
+  content: '';
   position: absolute;
   width: 100%;
   height: 100%;

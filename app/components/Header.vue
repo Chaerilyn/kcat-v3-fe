@@ -83,7 +83,7 @@ function showComingSoon() {
 <template>
   <div class="flex justify-between items-center select-none ">
     <div />
-    <div>
+    <div :class="{ 'pl-[52px]': authStore.isValid }">
       <div class="relative inline-flex flex-col items-center">
         <!-- Version Div -->
         <div class="absolute bottom-4.75 right-0 bg-black text-[8px] p-1 rounded-lg opacity-75">
@@ -115,13 +115,13 @@ function showComingSoon() {
     <p class="block text-center text-xs hover:text-cyan-600 cursor-pointer" @click="navigateAbout">
       About
     </p>
-    <p class="block text-center text-xs hover:text-cyan-600">
-      <a href="https://selca.kastden.org/kpop/" target="_blank">
-        Selca <em class="opacity-0"></em>
-      </a>
-    </p>
     <p class="block text-center text-xs hover:text-cyan-600 cursor-pointer" @click="showComingSoon">
       Donate <em class="opacity-0"></em>
+    </p>
+    <p class="block underline text-center text-xs hover:text-cyan-600">
+      <a href="https://selca.kastden.org/kpop/" target="_blank">
+        selca.kastden.org <em class="opacity-0"></em>
+      </a>
     </p>
   </div>
 </template>

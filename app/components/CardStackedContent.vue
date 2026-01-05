@@ -99,7 +99,7 @@ function filtersApply(value: FilterValue, type: 'idol' | 'group' | 'uploader' | 
 <template>
   <div class="pt-3 pb-3 px-2 rounded-md bg-[#0f172a] relative stack-effect">
     <div class="flex items-center gap-2 mb-2">
-      <NuxtLink :to="`/set/${content.id}`" class="flex-1 truncate">
+      <NuxtLink :to="isSet ? `/set/${content.id}` : `/collection/${content.id}`" class="flex-1 truncate">
         <h3 class="hover:text-rose-400 cursor-pointer">
           {{ content.title }}
         </h3>

@@ -23,8 +23,6 @@ const {
 
 const contentUrl = computed(() =>
   props.content.file
-    ? `${config.public.hostUrl}/${props.content.collectionId}/${props.content.id}/${props.content.file}`
-    : props.content.kpfhdFile,
 )
 
 const isFullscreenModalVisible = ref(false)

@@ -16,6 +16,12 @@ const settingsStore = useSettingsStore()
 const authStore = useAuthStore()
 
 const {
+  isMobile,
+  width,
+} = useWindowSize()
+
+
+const {
   items,
   itemsTotal,
   itemsCurrentPage,
@@ -45,6 +51,22 @@ async function onFiltersSettingsApply() {
   isLoading.value = false
 }
 
+const colCount = computed(() => {
+  const userSetting = parseInt(settingsStore.settings.columnCount) || 3
+  
+  if (width.value === 0) return userSetting 
+
+  // Responsive Clamping logic:
+  // If user wants 4 cols, but screen is < 640px, force 1.
+  // If screen is < 1024px, allow max 2.
+  if (width.value < 640) return 1 
+  if (width.value < 1024) return Math.min(userSetting, 2) 
+  if (width.value < 1280) return Math.min(userSetting, 3) 
+  
+  return userSetting
+})
+const { columns } = useMasonry(items, colCount)
+
 onMounted(async () => {
   await filtersStore.refetchFiltersData()
   await settingsStore.settingsLoad()
@@ -58,10 +80,8 @@ onMounted(async () => {
 
 <template>
   <div>
-    <Filterbar
-      @search="onFiltersSettingsApply" @filters-open="filtersOpen" @options-open="optionsOpen"
-      @filters-apply="onFiltersSettingsApply"
-    />
+    <Filterbar @search="onFiltersSettingsApply" @filters-open="filtersOpen" @options-open="optionsOpen"
+      @filters-apply="onFiltersSettingsApply" />
 
     <NavigationBase />
 
@@ -71,10 +91,12 @@ onMounted(async () => {
       </div>
     </div>
     <div v-else-if="items.length !== 0">
-      <div class="gap-8" :class="settingsStore.columnClass">
-        <div v-for="content in items" :key="content.id">
-          <div v-if="(content as any).title" class="mb-6 break-inside-avoid-column">
-            <CardStackedContent :content="content as any" :is-set="true" @filter-apply="onFiltersSettingsApply" />
+      <div class="flex gap-8 items-start w-full">
+        <div v-for="(colItems, colIndex) in columns" :key="colIndex" class="flex flex-col flex-1 min-w-0 gap-8">
+          <div v-for="content in colItems" :key="content.id">
+            <div v-if="(content as any).title">
+              <CardStackedContent :content="content as any" :is-set="true" @filter-apply="onFiltersSettingsApply" />
+            </div>
           </div>
         </div>
       </div>
@@ -89,25 +111,19 @@ onMounted(async () => {
 
     <div class="fixed p-4 mx-auto bottom-0 left-0 right-0 shadow-2xl z-50 max-w-xl">
       <div class="card mx-auto">
-        <Paginator
-          v-model:first="itemsCurrentPage" :template="{
-            default: 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink JumpToPageInput',
-          }" :rows="+settingsStore.settings.contentCount" :total-records="itemsTotal" @page="changePage"
-        />
+        <Paginator v-model:first="itemsCurrentPage" :template="{
+          default: 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink JumpToPageInput',
+        }" :rows="+settingsStore.settings.contentCount" :total-records="itemsTotal" @page="changePage" />
       </div>
     </div>
 
     <div v-if="isBaseFiltersDialogVisible">
-      <DialogBaseFilters
-        :is-visible="isBaseFiltersDialogVisible"
-        @update:is-visible="isBaseFiltersDialogVisible = $event" @filters-apply="onFiltersSettingsApply"
-      />
+      <DialogBaseFilters :is-visible="isBaseFiltersDialogVisible"
+        @update:is-visible="isBaseFiltersDialogVisible = $event" @filters-apply="onFiltersSettingsApply" />
     </div>
     <div v-if="isBaseSettingsDialogVisible">
-      <DialogBaseSettings
-        :is-visible="isBaseSettingsDialogVisible"
-        @update:is-visible="isBaseSettingsDialogVisible = $event" @settings-apply="onFiltersSettingsApply"
-      />
+      <DialogBaseSettings :is-visible="isBaseSettingsDialogVisible"
+        @update:is-visible="isBaseSettingsDialogVisible = $event" @settings-apply="onFiltersSettingsApply" />
     </div>
   </div>
 </template>

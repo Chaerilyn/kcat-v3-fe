@@ -123,13 +123,33 @@ function filtersApply(value: FilterValue, type: 'idol' | 'group' | 'uploader' | 
   emit('filtersApply')
 }
 
-function downloadFile(url: string) {
-  const a = document.createElement('a')
-  a.href = url
-  a.download = props.content.file.split('/').pop() || 'download'
-  document.body.appendChild(a)
-  a.click()
-  document.body.removeChild(a)
+async function downloadFile(url: string) {
+  try {
+    const response = await fetch(url, { mode: 'cors' })
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`)
+    }
+    const blob = await response.blob()
+    const blobUrl = URL.createObjectURL(blob)
+
+    const a = document.createElement('a')
+    a.href = blobUrl
+    a.download = props.content.file.split('/').pop() || 'download'
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+
+    URL.revokeObjectURL(blobUrl)
+  }
+  catch (error) {
+    console.error('File download failed:', error)
+    toast.add({
+      severity: 'error',
+      summary: 'Download Failed',
+      detail: 'Failed to download the file. Please try again.',
+      life: 5000,
+    })
+  }
 }
 
 function initializeItems() {
@@ -350,7 +370,7 @@ onMounted(async () => {
 
   padding: 2px 8px;
 
-  color: #FF0000 !important;
+  color: #ff0000 !important;
   gap: 0;
   opacity: 0.5;
 }
@@ -366,11 +386,11 @@ onMounted(async () => {
   background: #0f172a;
   border-radius: 8px;
   padding: 12px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
 }
 
 .stack-effect::before {
-  content: "";
+  content: '';
   position: absolute;
   width: 100%;
   height: 100%;

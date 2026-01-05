@@ -64,6 +64,7 @@
           <p>- Registration using email and password instead of Discord OAuth</p>
           <p>- Filters being applied despite empty search bar bug fixed</p>
           <p>- No filters are applied in single set view</p>
+          <p>- More consistent column layout that respects left to right created order</p>
         </ul>
         <ul class="list-disc list-inside text-gray-300">
           <h3 class="font-bold text-white">

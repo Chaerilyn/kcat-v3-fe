@@ -1,1 +1,1 @@
-Nuxt Version of KpopCat
+KpopCat V3 Frontend
